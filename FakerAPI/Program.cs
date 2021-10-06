@@ -1,40 +1,50 @@
-﻿using System;
+﻿using FakerAPI.API;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
 namespace FakerAPI
 {
     struct str {
-        int a;
+        public int a;
         int b;
-        public str( int sd) {
-            a = 10;
-            b = 1;
-        }
+        float bd;
+        public string N;
+        public object obj;
+        public string[,] arr;
     }
 
     class a {
         public int aaa;
         public string b;
         public string AAA { get; }
+        public str AAAA { get; set; }
         public a() {
             aaa = 1;
         }
     }
 
+    class aa {
+        int aaa;
+        private aa() { }
+    }
+
+    enum em { 
+        Red,
+        White,
+        Blue,
+        Purple
+    }
     class Program
     {
         private String val = "test";
 
         public static void Main()
         {
-            a aa = new a();
-            var fld = typeof(a).GetProperty("AAA");
-            if (fld.GetValue(aa) == null) {
-                Console.WriteLine();
-            }
-            double h = default(double);
-            Console.WriteLine(fld.GetValue(aa));
+            Faker faker = new Faker();
+            var a = faker.Create<DateTime>();
+            Console.WriteLine(a);
         }
     }
 }

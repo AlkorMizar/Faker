@@ -8,62 +8,152 @@ namespace FakerAPI.API
     class Faker
     {
         Random rnd;
+
+        public Faker() {
+            rnd = new Random();
+        }
         public T Create<T>() {
             return (T)Create(typeof(T));
         }
 
+        private bool IsPrimiteve(Type type) {
+            return type.IsPrimitive || Type.GetTypeCode(type)==TypeCode.Decimal;
+        }
+
         private object Create(Type type) {
-            
-            if (type.IsPrimitive)
+
+            if (IsPrimiteve(type))
             {
                 return CreateValueType(Type.GetTypeCode(type));
             }
-            else if (type.IsEnum) {
-                return CreateEnum(type);
-            }else
+            else if (type.IsEnum)
             {
-                object result;
-                ConstructorInfo[] constructorInfos = type.GetConstructors();
-                if (constructorInfos.Length != 0)
+                return CreateEnum(type);
+            }
+            else if (type == typeof(string))
+            {
+                return CreateString();
+            } else if (type.IsArray) 
+            {
+                return CreateArray(type);
+            }
+            else
+            {
+                return CreateObject(type);
+            }
+            
+        }
+
+        private object CreateArray(Type type) {
+            ParameterInfo[] parameterInfo = type.GetConstructors()[0].GetParameters();
+            object[] parameters = new object[parameterInfo.Length];
+            for (int i = 0; i < parameterInfo.Length; i++)
+            {
+                parameters[i] = CreateByte();
+            }
+            Array arr=(Array)Activator.CreateInstance(type, parameters);
+            FillArray(new int[arr.Rank], arr, 0, type.GetElementType());
+            return arr;
+        }
+
+        private void FillArray(int[] position,Array arr,int currentRank,Type type) {
+            for (int i = 0; i < arr.GetLength(currentRank); i++) {
+                position[currentRank] = i;
+                if (currentRank == arr.Rank-1)
                 {
-                    ConstructorInfo maxParamConstructor = constructorInfos[0];
-                    ParameterInfo[] maxParamInfo = maxParamConstructor.GetParameters();
-                    foreach (var info in constructorInfos)
+                    arr.SetValue(Create(type), position);
+                }
+                else {
+                    FillArray(position, arr, currentRank + 1,type);
+                }
+            }
+        }
+
+        private bool Checker(Type type, object obj) {
+            return obj == null ||
+                   (IsPrimiteve(type) && obj.Equals(0)) ||
+                   (type.IsValueType && !IsPrimiteve(type));
+        }
+
+        private bool CheckProperty(PropertyInfo info, object obj)
+        {
+            if (info.CanWrite)
+            {
+                if (info.CanRead)
+                {
+                    return Checker(info.PropertyType, info.GetValue(obj));
+                }
+                return true;
+
+            }
+            return false;
+        }
+
+        private bool CheckField(FieldInfo info, object obj)
+        {
+            return Checker(info.FieldType, info.GetValue(obj));
+        }
+
+        private object InitializeObj(Type type) {
+            ConstructorInfo[] constructorInfos = type.GetConstructors();
+            if (constructorInfos.Length != 0)
+            {
+                for(int i=constructorInfos.Length-1;i>=0;i--)
+                {
+                    try
                     {
-                        if (info.GetParameters().Length > maxParamInfo.Length)
+                        ParameterInfo[] parameterInfo = constructorInfos[i].GetParameters();
+                        object[] parameters = new object[parameterInfo.Length];
+                        for (int j = 0; j < parameterInfo.Length; j++)
                         {
-                            maxParamConstructor = info;
-                            maxParamInfo = info.GetParameters();
+                            parameters[j] = Create(parameterInfo[j].ParameterType);
                         }
+                        return Activator.CreateInstance(type, parameters);
                     }
-                    object[] parameters = new object[maxParamInfo.Length];
-                    for (int i = 0; i < maxParamInfo.Length; i++)
-                    {
-                        parameters[i] = Create(maxParamInfo[i].ParameterType);
-                    }
-                    result = Activator.CreateInstance(type, parameters);
+                    catch (Exception e) { }; 
                 }
-                else 
-                {
-                    result = Activator.CreateInstance(type);
-                }
-                PropertyInfo[] propertyInfo = type.GetProperties();
-                foreach (var property in propertyInfo)
-                {
-                    if (property.CanRead && property.GetValue(result)!=null && property.CanWrite) {
-                        property.SetValue(result,Create(property.PropertyType));
-                    }
-                }
-                FieldInfo[] fieldInfos = type.GetFields();
-                foreach (var field in fieldInfos)
-                {
-
-                    field.SetValue(result, Create(field.FieldType));
-                }
-
+            }
+            else
+            {
+                return Activator.CreateInstance(type);
             }
             return null;
         }
+
+        private void InitializeProperty(Type type,object obj) {
+            PropertyInfo[] propertyInfo = type.GetProperties();
+            foreach (var property in propertyInfo)
+            {
+                if (CheckProperty(property, obj))
+                {
+                    property.SetValue(obj, Create(property.PropertyType));
+                }
+            }
+        }
+
+        private void InitializeField(Type type,object obj) {
+            FieldInfo[] fieldInfos = type.GetFields();
+            foreach (var field in fieldInfos)
+            {
+                if (CheckField(field, obj))
+                {
+                    field.SetValue(obj, Create(field.FieldType));
+                }
+
+            }
+        }
+
+        private object CreateObject(Type type) {
+            object result = InitializeObj(type);
+            if (result != null)
+            {
+                InitializeProperty(type, result);
+                InitializeField(type, result);
+            }
+            return result;
+        }
+
+        
 
         private object CreateValueType(TypeCode type)
         {
@@ -187,8 +277,19 @@ namespace FakerAPI.API
 
         private object CreateEnum(Type type) {
             string[] enumConst = Enum.GetNames(type);
-            int ind = rnd.Next() % enumConst.Length;
+            int ind = rnd.Next();
+            ind = ind % enumConst.Length;
             return Enum.Parse(type, enumConst[ind]);
+        }
+
+        private string CreateString() {
+            StringBuilder builder = new StringBuilder();
+            int lenght = CreateByte() + 1;
+            for (int i = 0; i < lenght; i++)
+            {
+                builder.Append(CreateChar());
+            }
+            return builder.ToString();
         }
             
     }
