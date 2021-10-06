@@ -91,7 +91,7 @@ namespace FakerAPI.API
 
         private bool CheckField(FieldInfo info, object obj)
         {
-            return Checker(info.FieldType, info.GetValue(obj));
+            return Checker(info.FieldType, info.GetValue(obj)) && !info.IsInitOnly;
         }
 
         private object InitializeObj(Type type) {
