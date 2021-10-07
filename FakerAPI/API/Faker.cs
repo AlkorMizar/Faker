@@ -33,7 +33,7 @@ namespace FakerAPI.API
             else if (type == typeof(string))
             {
                 return CreateString();
-            } else if (type.IsArray) 
+            }else if (type.IsArray) 
             {
                 return CreateArray(type);
             }

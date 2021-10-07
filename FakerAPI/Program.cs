@@ -36,6 +36,23 @@ namespace FakerAPI
         Blue,
         Purple
     }
+
+    class A
+    {
+        public B  b { get; set; }
+}
+
+    class B
+    {
+        public C  c{ get; set; }
+    }
+
+    class C
+    {
+        public A a { get; set; } // циклическая зависимость, 
+                                // может быть на любом уровне вложенности
+    }
+
     class Program
     {
         private String val = "test";
@@ -43,7 +60,7 @@ namespace FakerAPI
         public static void Main()
         {
             Faker faker = new Faker();
-            var a = faker.Create<DateTime>();
+            var a = faker.Create<A>();
             Console.WriteLine(a);
         }
     }
