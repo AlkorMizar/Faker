@@ -121,7 +121,7 @@ namespace FakerAPI.API.Generators
 
         private bool InitProperty(PropertyInfo info, object obj)
         {
-            if (info.CanRead && info.GetType().IsClass && info.GetValue(obj) != null)
+            if (info.CanRead && !info.PropertyType.IsValueType && info.GetValue(obj) != null)
             {
                 return false;
             }
@@ -130,7 +130,7 @@ namespace FakerAPI.API.Generators
 
         private bool InitField(FieldInfo info, object obj)
         {
-            if (info.GetType().IsClass && info.GetValue(obj) != null)
+            if (!info.FieldType.IsValueType && info.GetValue(obj) != null)
             {
                 return false;
             }
