@@ -27,7 +27,7 @@ namespace FakerAPI
 
     class aa {
         int aaa;
-        private aa() { }
+        public aa() { }
     }
 
     enum em { 
@@ -53,15 +53,20 @@ namespace FakerAPI
                                 // может быть на любом уровне вложенности
     }
 
+    struct dick {
+        public int key;
+        public float val;
+    }
+
     class Program
     {
         private String val = "test";
 
         public static void Main()
         {
-            Faker faker = new Faker();
-            var a = faker.Create<A>();
-            Console.WriteLine(a);
+            IFaker faker = new Faker();
+            var _int = faker.Create<List<aa>>();
+            
         }
     }
 }

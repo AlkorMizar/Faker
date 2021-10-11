@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace FakerAPI.API
 {
-    interface IValueGenerator
+    public interface IValueGenerator
     {
+        object Generate(GeneratorContext context);
+        bool CanGenerate(Type type);
     }
+
 }
