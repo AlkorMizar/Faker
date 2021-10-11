@@ -21,7 +21,10 @@ namespace FakerAPI.API.Generators
             int length = (byte)context.Random.Next() + 1;
             var obj =Activator.CreateInstance(context.TargetType);
             var method=context.TargetType.GetMethod("Add");
-            method.Invoke
+            while (length-- > 0)
+            {
+                method.Invoke(obj, new object[] { context.Faker.Create(context.TargetType.GetGenericArguments()[0]) });
+            }
             return obj;
         }
 

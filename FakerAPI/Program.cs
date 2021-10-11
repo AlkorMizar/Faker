@@ -26,7 +26,7 @@ namespace FakerAPI
     }
 
     class aa {
-        int aaa;
+        public int aaa;
         public aa() { }
     }
 
