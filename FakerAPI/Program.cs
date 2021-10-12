@@ -6,58 +6,16 @@ using System.Reflection;
 
 namespace FakerAPI
 {
-    struct str {
-        public int a;
-        int b;
-        float bd;
-        public string N;
-        public object obj;
-        public string[,] arr;
+    class Foo {
+        string name;
+        
     }
-
-    class a {
-        public int aaa;
-        public string b;
-        public string AAA { get; }
-        public str AAAA { get; set; }
-        public a() {
-            aaa = 1;
-        }
+    struct Bar { 
     }
-
-    class aa {
-        public int aaa;
-        public aa() { }
-    }
-
-    enum em { 
-        Red,
-        White,
-        Blue,
-        Purple
-    }
-
-    class A
+    enum Color
     {
-        public B  b { get; set; }
-}
 
-    class B
-    {
-        public C  c{ get; set; }
     }
-
-    class C
-    {
-        public A a { get; set; } // циклическая зависимость, 
-                                // может быть на любом уровне вложенности
-    }
-
-    struct dick {
-        public int key;
-        public float val;
-    }
-
     class Program
     {
         private String val = "test";
@@ -65,8 +23,16 @@ namespace FakerAPI
         public static void Main()
         {
             IFaker faker = new Faker();
-            var _int = faker.Create<List<aa>>();
-            
+            /*Foo foo = faker.Create<Foo>(); 
+            Bar bar = faker.Create<Bar>(); 
+            int i = faker.Create<int>();
+            // Далее в примерах List носит иллюстративный характер. 
+            // Вместо него может быть выбрана любая коллекция из условия.
+            List<Foo> foos = faker.Create<List<Foo>>();
+            List<List<Foo>> lists = faker.Create<List<List<Foo>>>();
+            List<int> ints = faker.Create<List<int>>();*/
+            var url = faker.Create<DateTime>();
+            faker = new Faker();
         }
     }
 }

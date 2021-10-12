@@ -69,6 +69,11 @@ namespace FakerAPI.API.Generators
             return result;
         }
 
+        private bool TryCyclType(Type type) {
+            bool res = CycleType(type);
+            UnCycleType(type);
+            return res;
+        }
         private object InitializeObj(GeneratorContext context)
         {
             ConstructorInfo[] constructorInfos = context.TargetType.GetConstructors();
@@ -82,6 +87,10 @@ namespace FakerAPI.API.Generators
                         object[] parameters = new object[parameterInfo.Length];
                         for (int j = 0; j < parameterInfo.Length; j++)
                         {
+                            if (context.TargetType == parameterInfo[j].ParameterType)
+                            {
+                                throw new Exception("Циклическая инициализация в конструкторе");
+                            }
                             parameters[j] = context.Faker.Create(parameterInfo[j].ParameterType);
                         }
                         return Activator.CreateInstance(context.TargetType, parameters);
@@ -121,11 +130,17 @@ namespace FakerAPI.API.Generators
 
         private bool InitProperty(PropertyInfo info, object obj)
         {
-            if (info.CanRead && !info.PropertyType.IsValueType && info.GetValue(obj) != null)
+            try
             {
+                if (info.CanRead && !info.PropertyType.IsValueType && info.GetValue(obj) != null)
+                {
+                    return false;
+                }
+                return info.CanWrite;
+            }
+            catch (Exception e) {
                 return false;
             }
-            return info.CanWrite;
         }
 
         private bool InitField(FieldInfo info, object obj)
