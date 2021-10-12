@@ -1,5 +1,6 @@
 ﻿using FakerInterfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -69,17 +70,30 @@ namespace FakerAPI.API.Generators
             UnCycleType(context.TargetType);
             return result;
         }
+        
 
-        private bool TryCyclType(Type type) {
-            bool res = CycleType(type);
-            UnCycleType(type);
-            return res;
+        private ConstructorInfo[] GetSortedConstructors(Type type) {
+            var array = type.GetConstructors();
+            Array.Sort(array, (x,y)=> {
+                var lenghtOfConstrX = (x as ConstructorInfo).GetParameters().Length;
+                var lenghtOfConstrY = (y as ConstructorInfo).GetParameters().Length;
+
+                int res = (lenghtOfConstrX - lenghtOfConstrY);
+                if (res != 0)
+                {
+                    res /= Math.Abs(res);
+                }
+                return res;
+            });
+            return array;
         }
+
         private object InitializeObj(IGeneratorContext context)
         {
-            ConstructorInfo[] constructorInfos = context.TargetType.GetConstructors();
+            ConstructorInfo[] constructorInfos = GetSortedConstructors(context.TargetType);
             if (constructorInfos.Length != 0)
             {
+                int cycle = 10;
                 for (int i = constructorInfos.Length - 1; i >= 0; i--)
                 {
                     try
@@ -95,15 +109,19 @@ namespace FakerAPI.API.Generators
                             parameters[j] = context.Faker.Create(parameterInfo[j].ParameterType);
                         }
                         return Activator.CreateInstance(context.TargetType, parameters);
+                        
                     }
                     catch (Exception e) { };
                 }
             }
-            else
+            try
             {
                 return Activator.CreateInstance(context.TargetType);
             }
-            return null;
+            catch (Exception e)
+            {
+                return null;
+            }
         }
         private void InitializeProperty(IGeneratorContext context, object obj)
         {
@@ -150,7 +168,7 @@ namespace FakerAPI.API.Generators
             {
                 return false;
             }
-            return !info.IsInitOnly;
+            return !info.IsInitOnly && !info.IsLiteral;
         }
     }
 }

@@ -1,13 +1,9 @@
 ﻿using FakerInterfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FakerAPI.API.Generators
+namespace FakerPlugins
 {
-    class EnumGenerator : IValueGenerator
+    public class EnumGenerator : IValueGenerator
     {
         private static EnumGenerator instace;
         private EnumGenerator() { }

@@ -7,14 +7,41 @@
   "targets": {
     ".NETCoreApp,Version=v5.0": {
       "FakerAPI/1.0.0": {
+        "dependencies": {
+          "FakerInterfaces": "1.0.0",
+          "FakerPlugins": "1.0.0"
+        },
         "runtime": {
           "FakerAPI.dll": {}
+        }
+      },
+      "FakerInterfaces/1.0.0": {
+        "runtime": {
+          "FakerInterfaces.dll": {}
+        }
+      },
+      "FakerPlugins/1.0.0": {
+        "dependencies": {
+          "FakerInterfaces": "1.0.0"
+        },
+        "runtime": {
+          "FakerPlugins.dll": {}
         }
       }
     }
   },
   "libraries": {
     "FakerAPI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FakerInterfaces/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FakerPlugins/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

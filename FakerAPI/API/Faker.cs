@@ -2,6 +2,7 @@
 using FakerInterfaces;
 using System;
 using System.Collections.Generic;
+using FakerPlugins;
 
 namespace FakerAPI.API
 {

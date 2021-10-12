@@ -14,3 +14,8 @@ D:\Projects\C#\Faker\FakerAPI\obj\Debug\net5.0\FakerAPI.dll
 D:\Projects\C#\Faker\FakerAPI\obj\Debug\net5.0\ref\FakerAPI.dll
 D:\Projects\C#\Faker\FakerAPI\obj\Debug\net5.0\FakerAPI.pdb
 D:\Projects\C#\Faker\FakerAPI\obj\Debug\net5.0\FakerAPI.genruntimeconfig.cache
+D:\Projects\C#\Faker\FakerAPI\bin\Debug\net5.0\FakerInterfaces.dll
+D:\Projects\C#\Faker\FakerAPI\bin\Debug\net5.0\FakerPlugins.dll
+D:\Projects\C#\Faker\FakerAPI\bin\Debug\net5.0\FakerInterfaces.pdb
+D:\Projects\C#\Faker\FakerAPI\bin\Debug\net5.0\FakerPlugins.pdb
+D:\Projects\C#\Faker\FakerAPI\obj\Debug\net5.0\FakerAPI.csproj.CopyComplete

@@ -1,14 +1,10 @@
 ﻿using FakerInterfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FakerAPI.API.Generators
+namespace FakerPlugins
 {
-    class ListGenerator : IValueGenerator
+    public class ListGenerator : IValueGenerator
     {
         private static ListGenerator instance;
         private ListGenerator() { }
