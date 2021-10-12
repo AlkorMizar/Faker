@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {}
+    "net5.0": {
+      "FakerInterfaces/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/FakerInterfaces.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FakerInterfaces.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "FakerInterfaces/1.0.0": {
+      "type": "project",
+      "path": "../FakerInterfaces/FakerInterfaces.csproj",
+      "msbuildProject": "../FakerInterfaces/FakerInterfaces.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net5.0": []
+    "net5.0": [
+      "FakerInterfaces >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Аниса\\.nuget\\packages\\": {}
@@ -33,7 +52,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Projects\\C#\\Faker\\FakerInterfaces\\FakerInterfaces.csproj": {
+              "projectPath": "D:\\Projects\\C#\\Faker\\FakerInterfaces\\FakerInterfaces.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
