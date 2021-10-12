@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FakerInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace FakerAPI.API.Generators
             return type.IsEnum;
         }
 
-        public object Generate(GeneratorContext context)
+        public object Generate(IGeneratorContext context)
         {
             string[] enumConst = Enum.GetNames(context.TargetType);
             int ind = context.Random.Next();

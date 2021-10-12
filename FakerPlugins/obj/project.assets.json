@@ -25,6 +25,16 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "FakerInterfaces/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/FakerInterfaces.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FakerInterfaces.dll": {}
+        }
       }
     }
   },
@@ -172,10 +182,16 @@
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "FakerInterfaces/1.0.0": {
+      "type": "project",
+      "path": "../FakerInterfaces/FakerInterfaces.csproj",
+      "msbuildProject": "../FakerInterfaces/FakerInterfaces.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
+      "FakerInterfaces >= 1.0.0",
       "NETStandard.Library >= 2.0.3"
     ]
   },
@@ -205,7 +221,11 @@
       "frameworks": {
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Projects\\C#\\Faker\\FakerInterfaces\\FakerInterfaces.csproj": {
+              "projectPath": "D:\\Projects\\C#\\Faker\\FakerInterfaces\\FakerInterfaces.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

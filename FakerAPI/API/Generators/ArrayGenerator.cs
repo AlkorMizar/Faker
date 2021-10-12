@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FakerInterfaces;
+using System;
 using System.Reflection;
 
 namespace FakerAPI.API.Generators
@@ -12,7 +13,7 @@ namespace FakerAPI.API.Generators
             return type.IsArray;
         }
 
-        public object Generate(GeneratorContext context)
+        public object Generate(IGeneratorContext context)
         {
             ParameterInfo[] parameterInfo = context.TargetType.GetConstructors()[0].GetParameters();
             object[] parameters = new object[parameterInfo.Length];

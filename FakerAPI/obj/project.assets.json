@@ -11,6 +11,19 @@
         "runtime": {
           "bin/placeholder/FakerInterfaces.dll": {}
         }
+      },
+      "FakerPlugins/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "FakerInterfaces": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/FakerPlugins.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FakerPlugins.dll": {}
+        }
       }
     }
   },
@@ -19,11 +32,17 @@
       "type": "project",
       "path": "../FakerInterfaces/FakerInterfaces.csproj",
       "msbuildProject": "../FakerInterfaces/FakerInterfaces.csproj"
+    },
+    "FakerPlugins/1.0.0": {
+      "type": "project",
+      "path": "../FakerPlugins/FakerPlugins.csproj",
+      "msbuildProject": "../FakerPlugins/FakerPlugins.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "FakerInterfaces >= 1.0.0"
+      "FakerInterfaces >= 1.0.0",
+      "FakerPlugins >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -55,6 +74,9 @@
           "projectReferences": {
             "D:\\Projects\\C#\\Faker\\FakerInterfaces\\FakerInterfaces.csproj": {
               "projectPath": "D:\\Projects\\C#\\Faker\\FakerInterfaces\\FakerInterfaces.csproj"
+            },
+            "D:\\Projects\\C#\\Faker\\FakerPlugins\\FakerPlugins.csproj": {
+              "projectPath": "D:\\Projects\\C#\\Faker\\FakerPlugins\\FakerPlugins.csproj"
             }
           }
         }

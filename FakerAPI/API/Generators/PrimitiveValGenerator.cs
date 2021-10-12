@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FakerInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace FakerAPI.API.Generators
             return type.IsPrimitive || Type.GetTypeCode(type) == TypeCode.Decimal;
         }
 
-        public object Generate(GeneratorContext context)
+        public object Generate(IGeneratorContext context)
         {
             switch (Type.GetTypeCode(context.TargetType))
             {
@@ -77,64 +78,64 @@ namespace FakerAPI.API.Generators
 
         }
 
-        private bool CreateBoolean(GeneratorContext context)
+        private bool CreateBoolean(IGeneratorContext context)
         {
             return context.Random.Next() > context.Random.Next();
         }
-        private byte CreateByte(GeneratorContext context)
+        private byte CreateByte(IGeneratorContext context)
         {
             return (byte)context.Random.Next();
         }
 
-        private sbyte CreateSbyte(GeneratorContext context)
+        private sbyte CreateSbyte(IGeneratorContext context)
         {
             return (sbyte)context.Random.Next();
         }
-        private char CreateChar(GeneratorContext context)
+        private char CreateChar(IGeneratorContext context)
         {
             return (char)context.Random.Next();
         }
 
-        private short CreateShort(GeneratorContext context)
+        private short CreateShort(IGeneratorContext context)
         {
             return (short)context.Random.Next();
         }
 
-        private ushort CreateUShort(GeneratorContext context)
+        private ushort CreateUShort(IGeneratorContext context)
         {
             return (ushort)context.Random.Next();
         }
 
-        private int CreateInt(GeneratorContext context)
+        private int CreateInt(IGeneratorContext context)
         {
             return context.Random.Next();
         }
 
-        private uint CreateUInt(GeneratorContext context)
+        private uint CreateUInt(IGeneratorContext context)
         {
             return (uint)context.Random.Next();
         }
 
-        private long CreateLong(GeneratorContext context)
+        private long CreateLong(IGeneratorContext context)
         {
             return (long)context.Random.Next() * (long)context.Random.Next();
         }
 
-        private ulong CreateULong(GeneratorContext context)
+        private ulong CreateULong(IGeneratorContext context)
         {
             return ((ulong)context.Random.Next()) * ((ulong)context.Random.Next());
         }
 
-        private float CreateFloat(GeneratorContext context)
+        private float CreateFloat(IGeneratorContext context)
         {
             return (float)context.Random.NextDouble() * context.Random.Next();
         }
 
-        private double CreateDouble(GeneratorContext context)
+        private double CreateDouble(IGeneratorContext context)
         {
             return context.Random.NextDouble() * context.Random.Next();
         }
-        private decimal CreateDecimal(GeneratorContext context)
+        private decimal CreateDecimal(IGeneratorContext context)
         {
             return (decimal)context.Random.NextDouble() / context.Random.Next() * context.Random.Next();
         }

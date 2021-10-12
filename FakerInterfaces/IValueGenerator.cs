@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FakerAPI.API
+namespace FakerInterfaces
 {
     public interface IValueGenerator
     {
-        object Generate(GeneratorContext context);
+        object Generate(IGeneratorContext context);
         bool CanGenerate(Type type);
     }
 

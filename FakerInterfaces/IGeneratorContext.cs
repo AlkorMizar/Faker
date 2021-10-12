@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FakerPlugins
+namespace FakerInterfaces
 {
-    interface IGeneratorContext
+    public interface IGeneratorContext
     {
+        Random Random { get; }
+        Type TargetType { get; }
+        IFaker Faker { get; }
     }
 }

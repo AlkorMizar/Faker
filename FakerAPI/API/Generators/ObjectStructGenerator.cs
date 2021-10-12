@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FakerInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -53,7 +54,7 @@ namespace FakerAPI.API.Generators
             }
         }
 
-        public object Generate(GeneratorContext context)
+        public object Generate(IGeneratorContext context)
         {
             if (CycleType(context.TargetType)) {
                 UnCycleType(context.TargetType);
@@ -74,7 +75,7 @@ namespace FakerAPI.API.Generators
             UnCycleType(type);
             return res;
         }
-        private object InitializeObj(GeneratorContext context)
+        private object InitializeObj(IGeneratorContext context)
         {
             ConstructorInfo[] constructorInfos = context.TargetType.GetConstructors();
             if (constructorInfos.Length != 0)
@@ -104,7 +105,7 @@ namespace FakerAPI.API.Generators
             }
             return null;
         }
-        private void InitializeProperty(GeneratorContext context, object obj)
+        private void InitializeProperty(IGeneratorContext context, object obj)
         {
             PropertyInfo[] propertyInfo = context.TargetType.GetProperties();
             foreach (var property in propertyInfo)
@@ -116,7 +117,7 @@ namespace FakerAPI.API.Generators
             }
         }
 
-        private void InitializeField(GeneratorContext context, object obj)
+        private void InitializeField(IGeneratorContext context, object obj)
         {
             FieldInfo[] fieldInfos = context.TargetType.GetFields();
             foreach (var field in fieldInfos)

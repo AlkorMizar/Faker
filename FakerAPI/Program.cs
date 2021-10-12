@@ -1,4 +1,5 @@
 ﻿using FakerAPI.API;
+using FakerInterfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;

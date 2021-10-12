@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FakerInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
@@ -16,7 +17,7 @@ namespace FakerAPI.API.Generators
             return type.Name ==typeof(List<>).Name;
         }
 
-        public object Generate(GeneratorContext context)
+        public object Generate(IGeneratorContext context)
         {
             int length = (byte)context.Random.Next() + 1;
             var obj =Activator.CreateInstance(context.TargetType);
