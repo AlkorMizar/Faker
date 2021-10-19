@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace FakerAPI.API.Generators
 {
-    class ObjectStructGenerator : IValueGenerator
+    public class ObjectStructGenerator : IValueGenerator
     {
         Dictionary<string,int> cycleTable;
         public ObjectStructGenerator() {
@@ -155,7 +155,7 @@ namespace FakerAPI.API.Generators
                 {
                     return false;
                 }
-                return info.CanWrite;
+                return info.GetSetMethod().IsPublic;
             }
             catch (Exception e) {
                 return false;

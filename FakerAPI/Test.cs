@@ -114,4 +114,69 @@ namespace FakerAPI
         WHILE,
         TABLE
     }
+
+    public interface IItMe {
+        string getName();
+        IItMe GetNext();
+    }
+    public class A : IItMe{
+        public B b;
+        public A() { }
+
+        public string getName()
+        {
+            return "A\n";
+        }
+
+        public IItMe GetNext()
+        {
+            return b;
+        }
+
+        public override string ToString()
+        {
+            return getName()+ (b != null ? b.ToString() : "");
+        }
+    }
+
+    public class B : IItMe
+    {
+        public C c;
+        public B() { }
+
+        public string getName()
+        {
+            return "\tB\n";
+        }
+
+        public IItMe GetNext()
+        {
+            return c;
+        }
+
+        public override string ToString()
+        {
+            return getName() + (c != null ? c.ToString() : "");
+        }
+    }
+
+    public class C : IItMe
+    {
+        public A a;
+        public C() { }
+        public string getName()
+        {
+            return "\t\tC\n";
+        }
+
+        public IItMe GetNext()
+        {
+            return a;
+        }
+
+        public override string ToString()
+        {
+            return getName() +(a!=null ? a.ToString():"");
+        }
+    }
 }

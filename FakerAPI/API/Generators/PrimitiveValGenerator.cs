@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FakerAPI.API.Generators
 {
-    class PrimitiveValGenerator : IValueGenerator
+    public class PrimitiveValGenerator : IValueGenerator
     {
         private static PrimitiveValGenerator instance;
         private PrimitiveValGenerator() { }

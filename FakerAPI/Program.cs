@@ -1,9 +1,6 @@
 ﻿using FakerAPI.API;
 using FakerInterfaces;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace FakerAPI
 {
@@ -14,6 +11,8 @@ namespace FakerAPI
             IFaker faker = new Faker();
             var test = faker.Create<Class>();
             Console.WriteLine(test);
+            var a = faker.Create<A>();
+            Console.WriteLine(a);
         }
     }
 }

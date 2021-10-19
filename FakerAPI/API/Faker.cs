@@ -6,7 +6,7 @@ using FakerPlugins;
 
 namespace FakerAPI.API
 {
-    class Faker:IFaker
+    public class Faker:IFaker
     {
         Random rnd;
         Stack<IValueGenerator> generators;
@@ -15,11 +15,11 @@ namespace FakerAPI.API
             rnd = new Random();
             generators = new Stack<IValueGenerator>();
             generators.Push(new ObjectStructGenerator());
-            generators.Push(StringGenerator.GetInstance());
+            generators.Push(PrimitiveValGenerator.GetInstance());
+            generators.Push(StringGenerator.GetInstance()); 
+            generators.Push(EnumGenerator.GetInstance());
             generators.Push(ArrayGenerator.GetInstance());
             generators.Push(ListGenerator.GetInstance());
-            generators.Push(PrimitiveValGenerator.GetInstance());
-            generators.Push(EnumGenerator.GetInstance());
         }
         T IFaker.Create<T>() {
             return (T)Create(typeof(T));

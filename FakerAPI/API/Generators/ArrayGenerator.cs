@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace FakerAPI.API.Generators
 {
-    class ArrayGenerator : IValueGenerator
+    public class ArrayGenerator : IValueGenerator
     {
         private static ArrayGenerator instance;
         private ArrayGenerator() {}

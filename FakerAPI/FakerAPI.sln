@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakerAPI", "FakerAPI.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakerPlugins", "..\FakerPlugins\FakerPlugins.csproj", "{C5A89E06-50BF-4D91-9F7B-4EA0CF0004EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakerInterfaces", "..\FakerInterfaces\FakerInterfaces.csproj", "{2C4D14FC-1F39-4EBA-B8CB-C75623B30AD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakerInterfaces", "..\FakerInterfaces\FakerInterfaces.csproj", "{2C4D14FC-1F39-4EBA-B8CB-C75623B30AD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakerPluginsTests", "..\FakerPluginsTests\FakerPluginsTests.csproj", "{83493D10-834C-4F2D-9F4B-72F1334C1126}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FakerAPITests", "..\FakerAPITests\FakerAPITests.csproj", "{A4E367C9-AD3B-41DF-ABC6-6FD87F2CD3D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{2C4D14FC-1F39-4EBA-B8CB-C75623B30AD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C4D14FC-1F39-4EBA-B8CB-C75623B30AD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C4D14FC-1F39-4EBA-B8CB-C75623B30AD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83493D10-834C-4F2D-9F4B-72F1334C1126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83493D10-834C-4F2D-9F4B-72F1334C1126}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83493D10-834C-4F2D-9F4B-72F1334C1126}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83493D10-834C-4F2D-9F4B-72F1334C1126}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4E367C9-AD3B-41DF-ABC6-6FD87F2CD3D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4E367C9-AD3B-41DF-ABC6-6FD87F2CD3D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4E367C9-AD3B-41DF-ABC6-6FD87F2CD3D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4E367C9-AD3B-41DF-ABC6-6FD87F2CD3D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
