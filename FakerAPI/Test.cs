@@ -102,7 +102,7 @@ namespace FakerAPI
         }
     }
 
-    enum Enum { 
+    public enum Enum { 
         ROSE=-1,
         WHITE=100,
         DOG,
@@ -178,5 +178,28 @@ namespace FakerAPI
         {
             return getName() +(a!=null ? a.ToString():"");
         }
+    }
+
+    class User
+    {
+        public string name;
+        public int age;
+        public float money = 10.5f;
+        public Dog[] dogs;
+        public Profile profile;
+    }
+
+    class Dog
+    {
+        private Dog() { }
+        string name;
+        public User owner;
+    }
+
+    class Profile
+    {
+        public string address;
+        public Profile() { }
+        public Profile(int c) { }
     }
 }

@@ -91,6 +91,8 @@ namespace FakerAPI.API.Generators.Tests
             var obj = generator.Generate(context);
             Assert.IsNotNull(obj);
         }
+
+        
     }
 
 }

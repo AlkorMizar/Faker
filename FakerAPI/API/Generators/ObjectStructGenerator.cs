@@ -27,9 +27,12 @@ namespace FakerAPI.API.Generators
 
             if (type.IsClass)
             {
+                
                 if (cycleTable.ContainsKey(type.FullName))
                 {
-                    if (cycleTable[type.FullName] == 4)
+
+                    Console.WriteLine(type.FullName + " " + cycleTable[type.FullName]);
+                    if (cycleTable[type.FullName] == 2)
                     {
                         return true;
                     }
@@ -59,11 +62,14 @@ namespace FakerAPI.API.Generators
 
         public object Generate(IGeneratorContext context)
         {
+            
             if (CycleType(context.TargetType)) {
-                UnCycleType(context.TargetType);
+               // UnCycleType(context.TargetType);
                 return null;
             }
+            
             object result = InitializeObj(context);
+            
             if (result != null)
             {
                 InitializeProperty(context, result);
@@ -110,9 +116,9 @@ namespace FakerAPI.API.Generators
                     }
                     try
                     {
-                        return Activator.CreateInstance(context.TargetType,BindingFlags.NonPublic,parameters);   
+                        return constructorInfos[i].Invoke(parameters);
                     }
-                    catch (Exception e) { return constructorInfos[i].Invoke(parameters); };
+                    catch (Exception e) {  };
                 }
             }
             try
@@ -156,10 +162,74 @@ namespace FakerAPI.API.Generators
                 {
                     return false;
                 }
+                if (info.CanRead && IsPrimitive(info.PropertyType))
+                {
+                    return IsInit(info.GetValue(obj), info.PropertyType) && info.GetSetMethod().IsPublic;
+                }
                 return info.GetSetMethod().IsPublic;
             }
             catch (Exception e) {
                 return false;
+            }
+        }
+
+        private bool IsInit(object obj,Type type) {
+            switch (Type.GetTypeCode(type))
+            {
+                case TypeCode.Boolean:
+                    {
+                        return obj.Equals(default(bool));
+                    }
+                case TypeCode.Byte:
+                    {
+                        return obj.Equals(default(byte));
+                    }
+                case TypeCode.SByte:
+                    {
+                        return obj.Equals(default(sbyte));
+                    }
+                case TypeCode.Char:
+                    {
+                        return obj.Equals(default(char));
+                    }
+                case TypeCode.Int16:
+                    {
+                        return obj.Equals(default(short));
+                    }
+                case TypeCode.UInt16:
+                    {
+                        return obj.Equals(default(ushort));
+                    }
+                case TypeCode.Int32:
+                    {
+                        return obj.Equals(default(int));
+                    }
+                case TypeCode.UInt32:
+                    {
+                        return obj.Equals(default(uint));
+                    }
+                case TypeCode.Int64:
+                    {
+                        return obj.Equals(default(long));
+                    }
+                case TypeCode.UInt64:
+                    {
+                        return obj.Equals(default(ulong));
+                    }
+                case TypeCode.Single:
+                    {
+                        return obj.Equals(default(float));
+                    }
+                case TypeCode.Double:
+                    {
+                        return obj.Equals(default(double));
+                    }
+                case TypeCode.Decimal:
+                    {
+                        return obj.Equals(default(decimal));
+                    }
+                default:
+                    return false;
             }
         }
 
@@ -168,6 +238,10 @@ namespace FakerAPI.API.Generators
             if (!info.FieldType.IsValueType && info.GetValue(obj) != null)
             {
                 return false;
+            }
+            if (IsPrimitive(info.FieldType))
+            {
+                return IsInit(info.GetValue(obj), info.FieldType);
             }
             return !info.IsInitOnly && !info.IsLiteral;
         }

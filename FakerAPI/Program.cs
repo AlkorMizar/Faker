@@ -11,12 +11,13 @@ namespace FakerAPI
     {
         public static void Main()
         {
-            IFaker faker = new Faker();
+            IFaker faker = new Faker(); 
+            var a = faker.Create<User>();
+            Console.WriteLine(a);
             var s = faker.Create<b>();
             var test = faker.Create<Class>();
             Console.WriteLine(test);
-            var a = faker.Create<A>();
-            Console.WriteLine(a);
+            
         }
     }
 }

@@ -35,9 +35,18 @@ namespace FakerAPI.API.Tests
         [TestMethod()]
         public void Create_Cycled_NotNullObject()
         {
-            var expected = "ABCABCABCABC";
+            var expected = "ABCABC";
             var result = faker.Create<A>();
             Assert.AreEqual(result.ToString(), expected);
+        }
+
+        [TestMethod()]
+        public void CanGenerateTest_CustomClass_IsNotNull()
+        {
+            var obj = faker.Create<User>();
+
+            Assert.IsNotNull(obj);
+            Assert.IsTrue((obj as User).money == 10.5f);
         }
     }
 }

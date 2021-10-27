@@ -10,7 +10,6 @@ namespace FakerAPI.API
     {
         Random rnd;
         Stack<IValueGenerator> generators;
-
         public Faker() {
             rnd = new Random();
             generators = new Stack<IValueGenerator>();
