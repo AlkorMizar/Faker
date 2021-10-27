@@ -83,6 +83,14 @@ namespace FakerAPI.API.Generators.Tests
             var typedObj = (DateTime)obj;
             Assert.IsTrue(typedObj != default(DateTime));
         }
+
+        [TestMethod()]
+        public void CanGenerateTest_PrivateConstruct_IsNotNull()
+        {
+            var context = new GeneratorContext(random, typeof(Private), faker);
+            var obj = generator.Generate(context);
+            Assert.IsNotNull(obj);
+        }
     }
 
 }

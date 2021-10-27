@@ -204,6 +204,13 @@ namespace FakerAPI
         }
     }
 
+    public class Private {
+        public int a;
+        private Private(int _a) {
+            a = _a;
+        }
+    }
+
     public class C 
     {
         public A a;

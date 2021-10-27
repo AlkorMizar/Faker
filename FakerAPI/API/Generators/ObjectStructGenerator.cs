@@ -8,6 +8,8 @@ namespace FakerAPI.API.Generators
 {
     public class ObjectStructGenerator : IValueGenerator
     {
+        BindingFlags FLAGS = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
         Dictionary<string,int> cycleTable;
         public ObjectStructGenerator() {
             cycleTable = new Dictionary<string, int>();
@@ -73,7 +75,7 @@ namespace FakerAPI.API.Generators
         
 
         private ConstructorInfo[] GetSortedConstructors(Type type) {
-            var array = type.GetConstructors();
+            var array = type.GetConstructors(FLAGS);
             Array.Sort(array, (x,y)=> {
                 var lenghtOfConstrX = (x as ConstructorInfo).GetParameters().Length;
                 var lenghtOfConstrY = (y as ConstructorInfo).GetParameters().Length;
@@ -96,22 +98,21 @@ namespace FakerAPI.API.Generators
                 int cycle = 10;
                 for (int i = constructorInfos.Length - 1; i >= 0; i--)
                 {
+                    ParameterInfo[] parameterInfo = constructorInfos[i].GetParameters();
+                    object[] parameters = new object[parameterInfo.Length];
+                    for (int j = 0; j < parameterInfo.Length; j++)
+                    {
+                        if (context.TargetType == parameterInfo[j].ParameterType)
+                        {
+                            throw new Exception("Циклическая инициализация в конструкторе");
+                        }
+                        parameters[j] = context.Faker.Create(parameterInfo[j].ParameterType);
+                    }
                     try
                     {
-                        ParameterInfo[] parameterInfo = constructorInfos[i].GetParameters();
-                        object[] parameters = new object[parameterInfo.Length];
-                        for (int j = 0; j < parameterInfo.Length; j++)
-                        {
-                            if (context.TargetType == parameterInfo[j].ParameterType)
-                            {
-                                throw new Exception("Циклическая инициализация в конструкторе");
-                            }
-                            parameters[j] = context.Faker.Create(parameterInfo[j].ParameterType);
-                        }
-                        return Activator.CreateInstance(context.TargetType, parameters);
-                        
+                        return Activator.CreateInstance(context.TargetType,BindingFlags.NonPublic,parameters);   
                     }
-                    catch (Exception e) { };
+                    catch (Exception e) { return constructorInfos[i].Invoke(parameters); };
                 }
             }
             try
