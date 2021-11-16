@@ -235,19 +235,21 @@ namespace FakerAPI
         public string name;
         public int age;
         public float money = 10.5f;
-        public Dog[] dogs;
+        public LinkedList<Dog> dogs;
         public Profile profile;
     }
 
     class Dog {
         private Dog() {}
-        string name;
+        public string name;
         public User owner;
     }
 
     class Profile {
         public string address;
         public Profile() { }
-        public Profile(int c) { }
+        public Profile(int c) {
+            throw new Exception();
+        }
     }
 }

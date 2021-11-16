@@ -21,7 +21,7 @@ namespace FakerAPI.API.Generators
             {
                 parameters[i] = ((byte)context.Random.Next())+1;
             }
-            Array arr = (Array)Activator.CreateInstance(context.TargetType, parameters);
+            Array arr = (Array)Activator.CreateInstance(context.TargetType, 5);
             var elemContext = new GeneratorContext(context.Random,context.TargetType.GetElementType(), context.Faker);
             FillArray(new int[arr.Rank], arr, 0, elemContext);
             return arr;
